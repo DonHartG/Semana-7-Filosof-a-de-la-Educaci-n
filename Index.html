@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA en el Aula | Filosofía de la Educación · UTEL</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --deep-purple: #2d1b69;
+    --purple: #5e35b1;
+    --light-purple: #9575cd;
+    --cyan: #00bcd4;
+    --teal: #26a69a;
+    --gold: #ffa726;
+    --orange: #ff7043;
+    --dark: #1a1a2e;
+    --light: #f5f5f7;
+    --gray: #6c757d;
+  }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  /* ===== HEADER UTEL ===== */
+  .utel-header {
+    background: linear-gradient(135deg, var(--deep-purple), var(--purple));
+    padding: 25px 20px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .utel-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(0, 188, 212, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(255, 167, 38, 0.15) 0%, transparent 50%);
+  }
+  .utel-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .utel-logo {
+    width: 90px;
+    height: 90px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-weight: 900;
+    color: var(--deep-purple);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .utel-logo .shield {
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .utel-logo .text {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    margin-top: 2px;
+  }
+  .utel-logo::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+  }
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .utel-info { text-align: left; }
+  .utel-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+  }
+  .utel-info p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+  .utel-info .course {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 90vh;
+    background: linear-gradient(135deg, var(--dark) 0%, var(--deep-purple) 50%, var(--purple) 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+  }
+  .neural-network {
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+  }
+  .node {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--cyan);
+    animation: pulse-node 3s ease-in-out infinite;
+  }
+  .node:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+  .node:nth-child(2) { top: 40%; left: 25%; animation-delay: 0.5s; }
+  .node:nth-child(3) { top: 60%; left: 20%; animation-delay: 1s; }
+  .node:nth-child(4) { top: 30%; left: 70%; animation-delay: 1.5s; }
+  .node:nth-child(5) { top: 50%; left: 80%; animation-delay: 2s; }
+  .node:nth-child(6) { top: 70%; left: 75%; animation-delay: 2.5s; }
+  .node:nth-child(7) { top: 25%; left: 45%; animation-delay: 0.3s; }
+  .node:nth-child(8) { top: 65%; left: 50%; animation-delay: 1.3s; }
+  @keyframes pulse-node {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.5); opacity: 1; }
+  }
+  .connection {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    animation: flow-connection 4s linear infinite;
+  }
+  .connection:nth-child(9) { top: 30%; left: 15%; width: 30%; transform: rotate(20deg); }
+  .connection:nth-child(10) { top: 50%; left: 25%; width: 40%; transform: rotate(-10deg); animation-delay: 1s; }
+  .connection:nth-child(11) { top: 40%; left: 50%; width: 35%; transform: rotate(15deg); animation-delay: 2s; }
+  .connection:nth-child(12) { top: 60%; left: 45%; width: 30%; transform: rotate(-20deg); animation-delay: 3s; }
+  @keyframes flow-connection {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 1000px;
+    padding: 40px 20px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(0, 188, 212, 0.2);
+    border: 1px solid var(--cyan);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+    backdrop-filter: blur(10px);
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+  }
+  .hero h1 .highlight {
+    background: linear-gradient(135deg, var(--cyan), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .subtitle {
+    font-size: clamp(1rem, 1.8vw, 1.3rem);
+    max-width: 800px;
+    margin: 0 auto 35px;
+    opacity: 0.95;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-meta span {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  
+  /* ===== SECCIONES GENERALES ===== */
+  section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    color: var(--deep-purple);
+    margin-bottom: 15px;
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+  }
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--cyan), var(--purple));
+    border-radius: 2px;
+  }
+  .section-subtitle {
+    color: var(--gray);
+    font-size: 1.05rem;
+    max-width: 800px;
+    margin: 20px auto 0;
+  }
+  
+  /* ===== PARTICIPANTES ===== */
+  .participants-section {
+    background: linear-gradient(180deg, var(--light) 0%, #e8eaf6 100%);
+    padding: 80px 20px;
+    max-width: 100%;
+  }
+  .participants-container { max-width: 1200px; margin: 0 auto; }
+  .participants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 30px;
+  }
+  .participant-card {
+    background: white;
+    padding: 22px 18px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .participant-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--cyan), var(--purple));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .participant-card:hover::before { transform: scaleX(1); }
+  .participant-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(94, 53, 177, 0.2);
+  }
+  .participant-avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 4px 15px rgba(94, 53, 177, 0.3);
+  }
+  .participant-card h4 {
+    color: var(--deep-purple);
+    font-size: 0.92rem;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .participant-card .role {
+    font-size: 0.75rem;
+    color: var(--gray);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .participant-card .matricula {
+    font-size: 0.75rem;
+    color: var(--cyan);
+    font-weight: 600;
+    margin-top: 4px;
+    font-family: 'Courier New', monospace;
+  }
+  .professor-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--deep-purple), var(--purple));
+    color: white;
+    max-width: 500px;
+    margin: 20px auto 0;
+    padding: 25px;
+  }
+  .professor-card h4 { color: white; font-size: 1.1rem; }
+  .professor-card .role { color: var(--cyan); }
+  .professor-card .participant-avatar {
+    background: white;
+    color: var(--deep-purple);
+  }
+  
+  /* ===== INTRODUCCIÓN ===== */
+  .intro-section {
+    background: white;
+    padding: 80px 20px;
+    max-width: 100%;
+  }
+  .intro-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .intro-box {
+    background: linear-gradient(135deg, #f8f9fa, #e8eaf6);
+    padding: 35px;
+    border-radius: 20px;
+    border-left: 6px solid var(--purple);
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: #333;
+  }
+  .intro-box strong { color: var(--deep-purple); }
+  
+  /* ===== PROBLEMA ===== */
+  .problem-section {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    padding: 80px 20px;
+    max-width: 100%;
+  }
+  .problem-container { max-width: 1200px; margin: 0 auto; }
+  .tensions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+    margin-top: 40px;
+  }
+  .tension-card {
+    background: white;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-left: 5px solid var(--orange);
+    transition: all 0.3s;
+  }
+  .tension-card:hover {
+    transform: translateX(8px);
+    box-shadow: 0 15px 40px rgba(255, 112, 67, 0.2);
+  }
+  .tension-card .icon {
+    font-size: 2.3rem;
+    margin-bottom: 12px;
+  }
+  .tension-card h3 {
+    color: var(--deep-purple);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+  .tension-card p {
+    color: #555;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .tension-card .letter {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  
+  /* ===== JUSTIFICACIÓN ===== */
+  .justification-section {
+    background: var(--light);
+    padding: 80px 20px;
+    max-width: 100%;
+  }
+  .justification-container { max-width: 1200px; margin: 0 auto; }
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+  }
+  .impact-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    border-top: 4px solid var(--teal);
+    transition: all 0.3s;
+  }
+  .impact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(38, 166, 154, 0.15);
+  }
+  .impact-card .level {
+    display: inline-block;
+    background: var(--teal);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .impact-card h4 {
+    color: var(--deep-purple);
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+  }
+  .impact-card p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.7;
+  }
+  
+  /* ===== OBJETIVOS (TABS) ===== */
+  .objectives-section {
+    background: linear-gradient(180deg, var(--light) 0%, #ede7f6 100%);
+    padding: 80px 20px;
+    max-width: 100%;
+  }
+  .objectives-container { max-width: 1200px; margin: 0 auto; }
+  .tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    justify-content: center;
+  }
+  .tab-btn {
+    padding: 12px 24px;
+    border: none;
+    background: white;
+    color: var(--deep-purple);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tab-btn:hover { transform: translateY(-2px); }
+  .tab-btn.active {
+    background: linear-gradient(135deg, var(--purple), var(--deep-purple));
+    color: white;
+    box-shadow: 0 8px 25px rgba(94, 53, 177, 0.4);
+  }
+  .tab-content {
+    display: none;
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    animation: fadeIn 0.5s;
+  }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .tab-content h3 {
+    color: var(--deep-purple);
+    font-size: 1.6rem;
+    margin-bottom: 18px;
+  }
+  .main-objective {
+    background: linear-gradient(135deg, #ede7f6, #e8eaf6);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 5px solid var(--purple);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+  .specific-objectives {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .obj-item {
+    background: #f8f9fa;
+    padding: 18px;
+    border-radius: 12px;
+    border-left: 4px solid var(--cyan);
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  .obj-item .num {
+    background: var(--cyan);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+  }
+  .obj-item p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  .obj-item strong { color: var(--deep-purple); }
+  
+  /* ===== BASES TEÓRICAS ===== */
+  .theory-section {
+    background: white;
+    padding: 80px 20px;
+    max-width: 100%;
+  }
+  .theory-container { max-width: 1200px; margin: 0 auto; }
+  .theoretical-bases {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+  }
+  .base-card {
+    background: linear-gradient(135deg, #fff8e1, #fff3e0);
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    border-top: 4px solid var(--gold);
+    transition: all 0.3s;
+  }
+  .base-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 167, 38, 0.2);
+  }
+  .base-card .author {
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+  .base-card .year {
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .base-card p {
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.7;
+  }
+  .base-card .key-idea {
+    background: rgba(255,255,255,0.6);
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    border-left: 3px solid var(--gold);
+    font-style: italic;
+  }
+  
+  /* ===== PROPUESTA - TIMELINE ===== */
+  .proposal-section {
+    background: linear-gradient(180deg, var(--light) 0%, #ede7f6 100%);
+    padding: 80px 20px;
+    max-width: 100%;
+  }
+  .proposal-container { max-width: 1200px; margin: 0 auto; }
+  .timeline {
+    position: relative;
+    padding: 30px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--purple), var(--cyan));
+    transform: translateX(-50%);
+    border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 15px 40px;
+    margin-bottom: 15px;
+  }
+  .timeline-item:nth-child(odd) { left: 0; text-align: right; }
+  .timeline-item:nth-child(even) { left: 50%; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    width: 22px;
+    height: 22px;
+    background: white;
+    border: 4px solid var(--purple);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(94, 53, 177, 0.4);
+  }
+  .timeline-item:nth-child(odd)::before { right: -11px; }
+  .timeline-item:nth-child(even)::before { left: -11px; }
+  .timeline-card {
+    background: white;
+    padding: 22px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+    text-align: left;
+  }
+  .timeline-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(94, 53, 177, 0.15);
+  }
+  .timeline-card .phase {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--purple), var(--deep-purple));
+    color: white;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .timeline-card h3 {
+    color: var(--deep-purple);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+  .timeline-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .timeline-card ul li {
+    padding: 4px 0;
+    padding-left: 18px;
+    position: relative;
+    font-size: 0.88rem;
+    color: #555;
+  }
+  .timeline-card ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+    font-weight: 700;
+  }
+  .timeline-card .responsible {
+    margin-top: 12px;
+    padding: 10px;
+    background: #f0f7ff;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    color: var(--deep-purple);
+    font-weight: 500;
+    border-left: 3px solid var(--cyan);
+  }
+  
+  /* ===== GANTT ===== */
+  .gantt-section {
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    margin: 40px auto;
+    max-width: 1200px;
+    overflow-x: auto;
+  }
+  .gantt-table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+  }
+  .gantt-table th {
+    background: linear-gradient(135deg, var(--deep-purple), var(--purple));
+    color: white;
+    padding: 14px 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  .gantt-table th:first-child {
+    text-align: left;
+    min-width: 220px;
+  }
+  .gantt-table th:last-child {
+    text-align: left;
+    min-width: 200px;
+  }
+  .gantt-table td {
+    padding: 12px 8px;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    font-size: 0.85rem;
+    vertical-align: middle;
+  }
+  .gantt-table td:first-child {
+    text-align: left;
+    font-weight: 600;
+    color: var(--deep-purple);
+    background: #f8f9fa;
+  }
+  .gantt-table td:last-child {
+    text-align: left;
+    font-size: 0.78rem;
+    color: var(--gray);
+  }
+  .gantt-bar {
+    background: linear-gradient(90deg, var(--cyan), var(--teal));
+    height: 26px;
+    border-radius: 13px;
+    margin: 0 4px;
+    box-shadow: 0 4px 10px rgba(0, 188, 212, 0.3);
+    position: relative;
+  }
+  .gantt-bar::after {
+    content: '✓';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+  
+  /* ===== PROMPTS ANEXO ===== */
+  .prompts-section {
+    background: linear-gradient(135deg, #e8eaf6 0%, #ede7f6 100%);
+    padding: 80px 20px;
+    max-width: 100%;
+  }
+  .prompts-container { max-width: 1200px; margin: 0 auto; }
+  .prompts-grid {
+    display: grid;
+    gap: 18px;
+    margin-top: 30px;
+  }
+  .prompt-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+  }
+  .prompt-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(94, 53, 177, 0.15);
+  }
+  .prompt-header {
+    background: linear-gradient(135deg, var(--purple), var(--deep-purple));
+    color: white;
+    padding: 18px 22px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+  .prompt-header h4 {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .prompt-number {
+    background: var(--cyan);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .prompt-toggle {
+    font-size: 1.3rem;
+    transition: transform 0.3s;
+  }
+  .prompt-card.active .prompt-toggle { transform: rotate(180deg); }
+  .prompt-body {
+    padding: 0 22px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+  .prompt-card.active .prompt-body {
+    padding: 22px;
+    max-height: 800px;
+  }
+  .prompt-moment {
+    background: #fff3e0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border-left: 4px solid var(--gold);
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    color: #555;
+  }
+  .prompt-moment strong { color: var(--orange); }
+  .prompt-content {
+    background: #1a1a2e;
+    color: #a8d5f2;
+    padding: 20px;
+    border-radius: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--cyan);
+    white-space: pre-wrap;
+  }
+  .prompt-purpose {
+    background: #e8f5e9;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid var(--teal);
+    font-size: 0.88rem;
+  }
+  .prompt-purpose strong {
+    color: var(--teal);
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* ===== CONCLUSIONES ===== */
+  .conclusions-section {
+    background: linear-gradient(135deg, var(--deep-purple), var(--dark));
+    color: white;
+    padding: 80px 20px;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .conclusions-section::before {
+    content: '';
+    position: absolute;
+    top: -50px; left: 0; right: 0;
+    height: 100px;
+    background: var(--light);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+  }
+  .conclusions-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .conclusions-container h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  .conclusions-container p {
+    font-size: 1rem;
+    margin-bottom: 18px;
+    opacity: 0.95;
+    line-height: 1.8;
+    text-align: justify;
+  }
+  .key-insights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin: 30px 0;
+  }
+  .insight-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 22px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s;
+  }
+  .insight-card:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-5px);
+  }
+  .insight-card .icon { font-size: 1.8rem; margin-bottom: 10px; }
+  .insight-card h4 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--cyan);
+  }
+  .insight-card p {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    text-align: left;
+  }
+  
+  /* ===== REFERENCIAS ===== */
+  .references-section {
+    background: #f8f9fa;
+    padding: 70px 20px;
+    max-width: 100%;
+  }
+  .references-container { max-width: 1000px; margin: 0 auto; }
+  .ref-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+    margin-top: 25px;
+  }
+  .ref-list li {
+    background: white;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--purple);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    transition: transform 0.3s;
+  }
+  .ref-list li:hover {
+    transform: translateX(5px);
+    border-left-color: var(--cyan);
+  }
+  
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.9rem;
+  }
+  footer p { opacity: 0.7; margin: 5px 0; }
+  footer .footer-brand {
+    font-size: 1.1rem;
+    opacity: 1;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--cyan);
+  }
+  
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .timeline::before { left: 20px; }
+    .timeline-item {
+      width: 100%;
+      left: 0 !important;
+      padding-left: 50px;
+      padding-right: 10px;
+      text-align: left !important;
+    }
+    .timeline-item::before { left: 10px !important; right: auto !important; }
+    .participants-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    section { padding: 60px 20px; }
+    .utel-content { flex-direction: column; text-align: center; }
+    .utel-info { text-align: center; }
+  }
+  
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER UTEL -->
+<header class="utel-header">
+  <div class="utel-content">
+    <div class="utel-logo">
+      <div class="shield">🎓</div>
+      <div class="text">UTEL</div>
+    </div>
+    <div class="utel-info">
+      <h3>Universidad Tecnológica de México</h3>
+      <p>Maestría en Educación · Filosofía de la Educación</p>
+      <span class="course">📚 Unidad 7 · Semana 7</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="neural-network">
+    <div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div>
+    <div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div>
+    <div class="connection"></div><div class="connection"></div>
+    <div class="connection"></div><div class="connection"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">🤖 Interacción con AAV · Trabajo en equipo</div>
+    <h1>Uso Pedagógico y <span class="highlight">Responsable</span> de la IA en el Aula</h1>
+    <p class="subtitle">Propuesta de innovación educativa para fortalecer el pensamiento crítico, la coherencia institucional y la inclusión en la I.E. Fundadores Ramón Bueno y José Triana</p>
+    <div class="hero-meta">
+      <span>🏫 I.E. Fundadores Ramón Bueno y José Triana</span>
+      <span>📍 Girardot, Cundinamarca</span>
+      <span>👩‍🏫 Dra. María de Lourdes Jiménez Fuentes</span>
+      <span>🗓️ Octubre 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- PARTICIPANTES -->
+<section class="participants-section">
+  <div class="participants-container">
+    <div class="section-header">
+      <h2 class="section-title">Equipo de Trabajo</h2>
+      <p class="section-subtitle">11 maestrantes que desarrollaron esta propuesta de innovación educativa</p>
+    </div>
+    
+    <div class="participants-grid">
+      <div class="participant-card reveal">
+        <div class="participant-avatar">AB</div>
+        <h4>Armando Borrego Dorantes</h4>
+        <div class="role">Participante 1</div>
+      </div>
+      <div class="participant-card reveal">
+        <div class="participant-avatar">AD</div>
+        <h4>Ana Laura Diaz Valdez</h4>
+        <div class="role">Participante 2</div>
+      </div>
+      <div class="participant-card reveal">
+        <div class="participant-avatar">MC</div>
+        <h4>María Del Carmen Cruz Vázquez</h4>
+        <div class="role">Participante 3</div>
+      </div>
+      <div class="participant-card reveal">
+        <div class="participant-avatar">JM</div>
+        <h4>Jesús Antonio Monroy</h4>
+        <div class="role">Participante 4</div>
+      </div>
+      <div class="participant-card reveal">
+        <div class="participant-avatar">BR</div>
+        <h4>Brisia Yoseline Rábago Cota</h4>
+        <div class="role">Participante 5</div>
+      </div>
+      <div class="participant-card reveal">
+        <div class="participant-avatar">KD</div>
+        <h4>Kelly Jhoana Duran Torrado</h4>
+        <div class="role">Participante 6</div>
+        <div class="matricula">Matrícula: 200605362</div>
+      </div>
+      <div class="participant-card reveal">
+        <div class="participant-avatar">YM</div>
+        <h4>Yudid Sulay Mena Caicedo</h4>
+        <div class="role">Participante 7</div>
+        <div class="matricula">Matrícula: 200605445</div>
+      </div>
+      <div class="participant-card reveal">
+        <div class="participant-avatar">OG</div>
+        <h4>Oscar Fabián Gómez Sánchez</h4>
+        <div class="role">Participante 8</div>
+        <div class="matricula">Matrícula: 200605592</div>
+      </div>
+      <div class="participant-card reveal">
+        <div class="participant-avatar">NS</div>
+        <h4>Norellis Cecilia Salas Solano</h4>
+        <div class="role">Participante 9</div>
+        <div class="matricula">Matrícula: 200605619</div>
+      </div>
+      <div class="participant-card reveal">
+        <div class="participant-avatar">AP</div>
+        <h4>Astrid Patricia Parra Asprilla</h4>
+        <div class="role">Participante 10</div>
+      </div>
+      <div class="participant-card reveal">
+        <div class="participant-avatar">EA</div>
+        <h4>Emma Ide Alfonso Alfonso</h4>
+        <div class="role">Participante 11</div>
+        <div class="matricula">Matrícula: 200607652</div>
+      </div>
+      
+      <div class="participant-card professor-card reveal">
+        <div class="participant-avatar">👩‍🏫</div>
+        <h4>Dra. María de Lourdes Jiménez Fuentes</h4>
+        <div class="role">Docente de la asignatura · Filosofía de la Educación</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRODUCCIÓN -->
+<section class="intro-section">
+  <div class="intro-container">
+    <div class="section-header">
+      <h2 class="section-title">1. Introducción</h2>
+    </div>
+    <div class="intro-box reveal">
+      El presente proyecto desarrolla una propuesta de mejora educativa orientada a resolver una problemática identificada en la <strong>I.E. Fundadores Ramón Bueno y José Triana</strong>, ubicada en Girardot, Cundinamarca (Colombia): la incorporación espontánea y sin lineamientos pedagógicos de herramientas de <strong>inteligencia artificial (IA) generativa</strong> en las prácticas de enseñanza-aprendizaje.<br><br>
+      La propuesta <strong>no busca prohibir ni idealizar</strong> el uso de la IA en el aula, sino instalar en la comunidad educativa una capacidad crítica de apropiación: que docentes y estudiantes decidan <em>cuándo, cómo y con qué propósito pedagógico</em> emplear estas herramientas, en lugar de que su uso ocurra de manera desregulada.
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="problem-section">
+  <div class="problem-container">
+    <div class="section-header">
+      <h2 class="section-title">2. Análisis de la Situación Educativa</h2>
+      <p class="section-subtitle">Tres tensiones observables derivadas de la llegada masiva de IA generativa sin marco institucional</p>
+    </div>
+    
+    <div class="tensions-grid">
+      <div class="tension-card reveal">
+        <div class="icon">🤖</div>
+        <h3><span class="letter">a</span>Uso acrítico por estudiantes</h3>
+        <p>Los estudiantes utilizan herramientas de IA para resolver tareas sin mediación del proceso de aprendizaje, lo que <strong>erosiona la construcción autónoma del conocimiento</strong> y el desarrollo del pensamiento crítico.</p>
+      </div>
+      <div class="tension-card reveal">
+        <div class="icon">⚖️</div>
+        <h3><span class="letter">b</span>Ausencia de criterios docentes</h3>
+        <p>No existen criterios compartidos entre docentes para diferenciar un uso que <strong>apoya la comprensión</strong> de uno que la sustituye, generando decisiones arbitrarias y desiguales entre asignaturas.</p>
+      </div>
+      <div class="tension-card reveal">
+        <div class="icon">🎯</div>
+        <h3><span class="letter">c</span>Oportunidad desaprovechada</h3>
+        <p>La IA podría ser un recurso poderoso para la <strong>inclusión educativa y la diferenciación pedagógica</strong>, pero la falta de formación específica impide aprovechar su potencial para atender distintos ritmos y estilos de aprendizaje.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JUSTIFICACIÓN -->
+<section class="justification-section">
+  <div class="justification-container">
+    <div class="section-header">
+      <h2 class="section-title">3. Justificación del Proyecto</h2>
+      <p class="section-subtitle">El impacto esperado se despliega en tres niveles, alineado con las orientaciones de la UNESCO (2021, 2023)</p>
+    </div>
+    
+    <div class="impact-grid">
+      <div class="impact-card reveal">
+        <span class="level">Nivel Pedagógico</span>
+        <h4>🧠 Pensamiento crítico</h4>
+        <p>Fortalecer el pensamiento crítico de los estudiantes frente a la información generada por sistemas de IA, evitando una relación de dependencia acrítica.</p>
+      </div>
+      <div class="impact-card reveal">
+        <span class="level">Nivel Institucional</span>
+        <h4>🏛️ Protocolo propio</h4>
+        <p>Dotar a la I.E. Fundadores de un protocolo construido participativamente —no importado sin adaptación— que oriente decisiones docentes coherentes entre áreas.</p>
+      </div>
+      <div class="impact-card reveal">
+        <span class="level">Nivel de Equidad</span>
+        <h4>⚖️ Inclusión educativa</h4>
+        <p>Convertir la IA en un recurso de apoyo a la diferenciación pedagógica y la inclusión, no en un factor que profundice las brechas existentes.</p>
+      </div>
+    </div>
+    
+    <div style="background: white; padding: 25px; border-radius: 16px; margin-top: 25px; border-left: 5px solid var(--gold); box-shadow: 0 8px 25px rgba(0,0,0,0.06);">
+      <strong style="color: var(--deep-purple);">💡 Fortaleza institucional aprovechada:</strong>
+      <p style="margin-top: 8px; font-size: 0.95rem; color: #555;">La trayectoria previa de la institución en proyectos de investigación estudiantil (semillero) y trabajo STEM ofrece una estructura organizativa sobre la cual puede montarse el proceso de diagnóstico, formación y pilotaje, sin necesidad de crear instancias completamente nuevas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OBJETIVOS -->
+<section class="objectives-section">
+  <div class="objectives-container">
+    <div class="section-header">
+      <h2 class="section-title">4. Objetivos del Proyecto</h2>
+      <p class="section-subtitle">Diseñar e implementar una política institucional de uso pedagógico, ético y responsable de la IA</p>
+    </div>
+    
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="general">🎯 Objetivo General</button>
+      <button class="tab-btn" data-tab="specific">📋 Objetivos Específicos</button>
+    </div>
+    
+    <div class="tab-content active" id="general">
+      <h3>Objetivo General</h3>
+      <div class="main-objective">
+        Diseñar e implementar, de manera participativa, una <strong>política institucional de uso pedagógico, ético y responsable de la inteligencia artificial</strong> en los procesos de enseñanza-aprendizaje de la I.E. Fundadores Ramón Bueno y José Triana, para fortalecer el pensamiento crítico, la coherencia entre áreas y la inclusión educativa.
+      </div>
+    </div>
+    
+    <div class="tab-content" id="specific">
+      <h3>Objetivos Específicos</h3>
+      <div class="specific-objectives">
+        <div class="obj-item">
+          <div class="num">1</div>
+          <p><strong>Diagnosticar</strong> el nivel de uso, la percepción y las prácticas actuales frente a herramientas de IA generativa entre docentes y estudiantes de la institución.</p>
+        </div>
+        <div class="obj-item">
+          <div class="num">2</div>
+          <p><strong>Capacitar</strong> al cuerpo docente en principios pedagógicos y éticos para la integración de la IA generativa en el aula.</p>
+        </div>
+        <div class="obj-item">
+          <div class="num">3</div>
+          <p><strong>Diseñar</strong>, de manera participativa con docentes y representantes estudiantiles, un protocolo institucional que regule y oriente el uso académico de la IA.</p>
+        </div>
+        <div class="obj-item">
+          <div class="num">4</div>
+          <p><strong>Implementar</strong> estrategias didácticas piloto que incorporen la IA como apoyo a la diferenciación pedagógica y la inclusión educativa.</p>
+        </div>
+        <div class="obj-item">
+          <div class="num">5</div>
+          <p><strong>Evaluar</strong> el impacto del protocolo mediante indicadores de integridad académica, percepción docente-estudiantil y calidad de los aprendizajes, para ajustar su versión definitiva.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BASES TEÓRICAS -->
+<section class="theory-section">
+  <div class="theory-container">
+    <div class="section-header">
+      <h2 class="section-title">6.1. Sustento Teórico</h2>
+      <p class="section-subtitle">Tres referentes complementarios que orientan la propuesta</p>
+    </div>
+    
+    <div class="theoretical-bases">
+      <div class="base-card reveal">
+        <div class="author">John Dewey</div>
+        <div class="year">Experiencia y educación (1938/2004)</div>
+        <p>El aprendizaje es reconstrucción de la experiencia guiada por la reflexión del sujeto.</p>
+        <div class="key-idea">💡 Cualquier herramienta —incluida la IA— debe subordinarse al proceso reflexivo del estudiante, no reemplazarlo.</div>
+      </div>
+      <div class="base-card reveal">
+        <div class="author">Paulo Freire</div>
+        <div class="year">Pedagogía del oprimido (2005)</div>
+        <p>La educación es un acto dialógico y problematizador.</p>
+        <div class="key-idea">💡 El protocolo institucional no puede imponerse verticalmente, sino construirse con la participación de docentes y estudiantes.</div>
+      </div>
+      <div class="base-card reveal">
+        <div class="author">Seymour Papert</div>
+        <div class="year">Mindstorms (1980)</div>
+        <p>Construccionismo: la tecnología cumple su función educativa cuando el estudiante la usa para construir activamente conocimiento.</p>
+        <div class="key-idea">💡 La IA debe funcionar como andamiaje, no como atajo. Orienta el diseño de las estrategias piloto de la Fase 4.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPUESTA - 5 FASES -->
+<section class="proposal-section">
+  <div class="proposal-container">
+    <div class="section-header">
+      <h2 class="section-title">6.2. Propuesta de Mejora</h2>
+      <p class="section-subtitle">Cinco fases secuenciales a lo largo de diez semanas</p>
+    </div>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <span class="phase">FASE 1 · Semanas 1-2</span>
+          <h3>🔍 Diagnóstico Institucional</h3>
+          <ul>
+            <li>Aplicación de encuestas breves a docentes y estudiantes</li>
+            <li>Relevamiento de frecuencia, tipo y percepción del uso de IA</li>
+            <li>Insumo para orientar el diseño del protocolo</li>
+          </ul>
+          <div class="responsible">👥 Responsable: Comité de innovación educativa / Semillero de investigación</div>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <span class="phase">FASE 2 · Semanas 3-4</span>
+          <h3>📚 Formación Docente</h3>
+          <ul>
+            <li>Talleres cortos sobre uso ético y pedagógico de la IA</li>
+            <li>Cómo distinguir el apoyo al aprendizaje de la sustitución</li>
+            <li>Estrategias para la integración en el aula</li>
+          </ul>
+          <div class="responsible">👥 Responsable: Coordinación académica / Facilitadores externos</div>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <span class="phase">FASE 3 · Semanas 5-6</span>
+          <h3>🤝 Co-diseño del Protocolo</h3>
+          <ul>
+            <li>Redacción participativa de lineamientos institucionales</li>
+            <li>Definición de usos permitidos y citación de IA</li>
+            <li>Acompañamiento para estudiantes con dificultades de acceso</li>
+          </ul>
+          <div class="responsible">👥 Responsable: Docentes por área + representantes estudiantiles</div>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <span class="phase">FASE 4 · Semanas 7-8</span>
+          <h3>🧪 Pilotaje</h3>
+          <ul>
+            <li>Implementación en asignaturas STEM y de Humanidades</li>
+            <li>Estrategias de diferenciación pedagógica</li>
+            <li>Atención a estudiantes con necesidades específicas de apoyo</li>
+          </ul>
+          <div class="responsible">👥 Responsable: Docentes piloto / Estudiantes participantes</div>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <span class="phase">FASE 5 · Semanas 9-10</span>
+          <h3>📊 Evaluación y Ajuste</h3>
+          <ul>
+            <li>Recogida de resultados del pilotaje</li>
+            <li>Ajuste del protocolo con base en evidencias</li>
+            <li>Socialización de la versión definitiva ante el consejo académico</li>
+            <li>Adopción institucional</li>
+          </ul>
+          <div class="responsible">👥 Responsable: Comité de innovación educativa / Rectoría</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- GANTT -->
+    <div class="gantt-section">
+      <h3 style="text-align: center; color: var(--deep-purple); margin-bottom: 20px;">📅 Cronograma de Implementación (Diagrama de Gantt)</h3>
+      <table class="gantt-table">
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>Semana 1-2</th>
+            <th>Semana 3-4</th>
+            <th>Semana 5-6</th>
+            <th>Semana 7-8</th>
+            <th>Semana 9-10</th>
+            <th>Responsable(s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fase 1. Diagnóstico institucional</td>
+            <td><div class="gantt-bar"></div></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Comité de innovación / Semillero</td>
+          </tr>
+          <tr>
+            <td>Fase 2. Formación docente en IA ética y pedagógica</td>
+            <td></td>
+            <td><div class="gantt-bar"></div></td>
+            <td><div class="gantt-bar"></div></td>
+            <td></td>
+            <td></td>
+            <td>Coordinación académica / Facilitadores externos</td>
+          </tr>
+          <tr>
+            <td>Fase 3. Co-diseño del protocolo institucional</td>
+            <td></td>
+            <td></td>
+            <td><div class="gantt-bar"></div></td>
+            <td><div class="gantt-bar"></div></td>
+            <td></td>
+            <td>Docentes por área + representantes estudiantiles</td>
+          </tr>
+          <tr>
+            <td>Fase 4. Pilotaje en áreas STEM y Humanidades</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><div class="gantt-bar"></div></td>
+            <td><div class="gantt-bar"></div></td>
+            <td>Docentes piloto / Estudiantes participantes</td>
+          </tr>
+          <tr>
+            <td>Fase 5. Evaluación, ajuste y socialización</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><div class="gantt-bar"></div></td>
+            <td>Comité de innovación / Rectoría</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSIONES -->
+<section class="conclusions-section">
+  <div class="conclusions-container">
+    <h2>7. Conclusión General</h2>
+    <p>Este proyecto traduce en una acción institucional concreta una pregunta propia de la filosofía de la educación: <strong>qué lugar debe ocupar una tecnología emergente en la formación de sujetos críticos y autónomos</strong>, y quién tiene la autoridad legítima para decidirlo dentro de la comunidad educativa.</p>
+    
+    <div class="key-insights">
+      <div class="insight-card">
+        <div class="icon">🎯</div>
+        <h4>Evita dos salidas fáciles</h4>
+        <p>La prohibición que ignora una transformación ya en curso, y la adopción acrítica que renuncia al criterio pedagógico.</p>
+      </div>
+      <div class="insight-card">
+        <div class="icon">🤝</div>
+        <h4>Protocolo participativo</h4>
+        <p>Construido en línea con la pedagogía dialógica de Freire, con docentes y estudiantes como co-autores.</p>
+      </div>
+      <div class="insight-card">
+        <div class="icon">🧠</div>
+        <h4>IA subordinada a la reflexión</h4>
+        <p>En coherencia con Dewey y Papert, la herramienta apoya pero nunca reemplaza el proceso reflexivo del estudiante.</p>
+      </div>
+      <div class="insight-card">
+        <div class="icon">💡</div>
+        <h4>Aprendizaje del proceso</h4>
+        <p>Los marcos teóricos de la filosofía de la educación ofrecen criterios operativos concretos para diseñar políticas institucionales.</p>
+      </div>
+    </div>
+    
+    <p>El principal aprendizaje del proceso de elaboración de este proyecto fue constatar que los marcos teóricos de la filosofía de la educación, lejos de ser abstractos, ofrecen criterios operativos concretos para diseñar una política institucional; y que <strong>la construcción de dicha política es en sí misma un ejercicio educativo</strong> para quienes participan en ella.</p>
+  </div>
+</section>
+
+<!-- PROMPTS ANEXO -->
+<section class="prompts-section">
+  <div class="prompts-container">
+    <div class="section-header">
+      <h2 class="section-title">Anexo · Construcción de Prompts</h2>
+      <p class="section-subtitle">Registro de prompts empleados con el Asistente de Aprendizaje Virtual (AAV). Haz clic en cada tarjeta para ver el detalle.</p>
+    </div>
+    
+    <div class="prompts-grid">
+      <div class="prompt-card">
+        <div class="prompt-header" onclick="this.parentElement.classList.toggle('active')">
+          <h4><span class="prompt-number">1</span> Análisis de la situación</h4>
+          <span class="prompt-toggle">▼</span>
+        </div>
+        <div class="prompt-body">
+          <div class="prompt-moment"><strong>Momento:</strong> Análisis de la situación educativa</div>
+          <div class="prompt-content">Actúa como asesor en filosofía de la educación. A partir de estas características de una institución pública colombiana de básica y media (aula heterogénea, conectividad desigual, adopción espontánea de IA generativa sin lineamientos), identifica 3 tensiones pedagógicas prioritarias y justifica cada una en dos líneas.</div>
+          <div class="prompt-purpose">
+            <strong>🎯 Propósito / uso del resultado:</strong>
+            Contrastar y depurar la lista de problemáticas antes de redactar el análisis de la situación educativa.
+          </div>
+        </div>
+      </div>
+      
+      <div class="prompt-card">
+        <div class="prompt-header" onclick="this.parentElement.classList.toggle('active')">
+          <h4><span class="prompt-number">2</span> Sustento teórico</h4>
+          <span class="prompt-toggle">▼</span>
+        </div>
+        <div class="prompt-body">
+          <div class="prompt-moment"><strong>Momento:</strong> Construcción del marco teórico</div>
+          <div class="prompt-content">Compara las posturas de Dewey, Freire y Papert frente al papel de la tecnología en el aprendizaje experiencial y crítico. Señala qué autor respalda mejor una propuesta de uso ético de IA generativa en el aula y por qué.</div>
+          <div class="prompt-purpose">
+            <strong>🎯 Propósito / uso del resultado:</strong>
+            Seleccionar el marco teórico más coherente para la propuesta de mejora y evitar cita superficial de autores.
+          </div>
+        </div>
+      </div>
+      
+      <div class="prompt-card">
+        <div class="prompt-header" onclick="this.parentElement.classList.toggle('active')">
+          <h4><span class="prompt-number">3</span> Diseño del cronograma</h4>
+          <span class="prompt-toggle">▼</span>
+        </div>
+        <div class="prompt-body">
+          <div class="prompt-moment"><strong>Momento:</strong> Diseño de la propuesta de mejora</div>
+          <div class="prompt-content">Diseña una secuencia de 5 fases para implementar un protocolo institucional de uso de IA en 10 semanas, indicando qué fase requiere validación docente antes de avanzar y qué riesgos de secuenciación existen.</div>
+          <div class="prompt-purpose">
+            <strong>🎯 Propósito / uso del resultado:</strong>
+            Estructurar el diagrama de Gantt y anticipar dependencias entre fases.
+          </div>
+        </div>
+      </div>
+      
+      <div class="prompt-card">
+        <div class="prompt-header" onclick="this.parentElement.classList.toggle('active')">
+          <h4><span class="prompt-number">4</span> Verificación de referencias</h4>
+          <span class="prompt-toggle">▼</span>
+        </div>
+        <div class="prompt-body">
+          <div class="prompt-moment"><strong>Momento:</strong> Control de calidad final</div>
+          <div class="prompt-content">Verifica que las siguientes referencias en formato APA 7 correspondan a obras reales y estén citadas correctamente: [lista de referencias]. Señala cualquier dato que no puedas confirmar.</div>
+          <div class="prompt-purpose">
+            <strong>🎯 Propósito / uso del resultado:</strong>
+            Control de calidad para evitar citas o datos bibliográficos inventados en el documento final.
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="background: white; padding: 25px; border-radius: 16px; margin-top: 30px; border-left: 5px solid var(--cyan); box-shadow: 0 8px 25px rgba(0,0,0,0.06);">
+      <strong style="color: var(--deep-purple);">🔍 Enfoque del uso de IA:</strong>
+      <p style="margin-top: 8px; font-size: 0.95rem; color: #555;">Los prompts documentados respaldan un uso de la IA orientado a <strong>contrastar, verificar y estructurar ideas</strong> —no a sustituir la elaboración propia del proyecto— coherente con el enfoque pedagógico defendido en la propuesta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCIAS -->
+<section class="references-section">
+  <div class="references-container">
+    <div class="section-header">
+      <h2 class="section-title">8. Lista de Referencias</h2>
+    </div>
+    <ul class="ref-list">
+      <li>Dewey, J. (2004). <em>Experiencia y educación</em> (J. Claravall, Trad.). Biblioteca Nueva. (Obra original publicada en 1938).</li>
+      <li>Freire, P. (2005). <em>Pedagogía del oprimido</em> (2.ª ed.). Siglo XXI Editores.</li>
+      <li>Litwin, E. (2005). <em>Tecnologías educativas en tiempos de internet</em>. Amorrortu Editores.</li>
+      <li>Papert, S. (1980). <em>Mindstorms: Children, computers, and powerful ideas</em>. Basic Books.</li>
+      <li>Selwyn, N. (2019). <em>Should robots replace teachers? AI and the future of education</em>. Polity Press.</li>
+      <li>UNESCO. (2021). <em>Recomendación sobre la ética de la inteligencia artificial</em>. Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. https://unesdoc.unesco.org/</li>
+      <li>UNESCO. (2023). <em>Guidance for generative AI in education and research</em>. Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-brand">🎓 Universidad Tecnológica de México (UTEL)</p>
+  <p><strong>Maestría en Educación · Filosofía de la Educación</strong></p>
+  <p>Unidad 7 · Semana 7 · Interacción con AAV (En equipo)</p>
+  <p>Docente: Dra. María de Lourdes Jiménez Fuentes</p>
+  <p style="margin-top: 15px; font-size: 0.8rem;">© Octubre 2026 · Equipo de 11 maestrantes</p>
+</footer>
+
+<script>
+  // ===== TABS =====
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+    });
+  });
+  
+  // ===== SCROLL REVEAL =====
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
